@@ -12,7 +12,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-const API = "https://yjsoon.pythonanywhere.com";
+const API = "http://m0n5terg.pythonanywhere.com";
 const API_LOGIN = "/auth";
 
 export default function SignInScreen({ navigation }) {
@@ -67,6 +67,9 @@ export default function SignInScreen({ navigation }) {
         <TouchableOpacity onPress={login} style={styles.loginButton}>
           <Text style={styles.buttonText}>Log in</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+          <Text style={styles.navText}>New User? Sign Up</Text>
+        </TouchableOpacity>
         <Text style={styles.errorText}>{errorText}</Text>
       </View>
     </TouchableWithoutFeedback>
@@ -100,18 +103,28 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: "blue",
     width: 120,
-    alignItems: "center",
-    padding: 18,
+    borderRadius: 10,
+    padding: 10,
     marginTop: 12,
-    marginBottom: 36,
+    marginBottom: 40,
+    alignSelf: 'center'
   },
   buttonText: {
     color: "white",
     fontWeight: "bold",
     fontSize: 18,
+    alignSelf: 'center'
+  },
+  navText: {
+    color: "royalblue",
+    fontWeight: "bold",
+    fontSize: 18,
+    alignSelf: "center"
   },
   errorText: {
+    marginTop: 20,
     color: "red",
     height: 40,
+    alignSelf: "center"
   },
 });
