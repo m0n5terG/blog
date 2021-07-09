@@ -20,9 +20,8 @@ const API_WHOAMI = "/whoami";
 export default function AccountScreen({ navigation }) {
   
   const [username, setUsername] = useState("");
-//  const [profileImage, setProfileImage] = useState("");
-  const [joinDate, setJoinDate] = useState("");
   const [loading, setLoading] = useState(true);
+  //  const [profileImage, setProfileImage] = useState("");
 
   async function getUserData() {
     setLoading(true);
@@ -36,12 +35,9 @@ export default function AccountScreen({ navigation }) {
         headers: { Authorization: `JWT ${token}` },
       });
 
-      let joinDate = new Date(response.data.createdAt * 1000).toDateString();
-      
       console.log("Got user profile!");
 
       setUsername(response.data.username);
-      setJoinDate(joinDate);
 //      setProfileImage(response.data.profileImage);
 
       setLoading(false);
@@ -86,8 +82,8 @@ export default function AccountScreen({ navigation }) {
       { loading ? (<ActivityIndicator size="large" color="#0000ff" />) : 
       (
         <View style={{alignItems: "center"}}>
-          <Text style={styles.user}>{username}</Text>
-          <Text style={styles.user}>{joinDate}</Text>         
+          <Text style={styles.note}>Welcome back!</Text>
+          <Text style={styles.user}>{username}</Text>         
           <Button title="Sign out" onPress={signOut} />
         </View>
       )}
@@ -116,6 +112,11 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 40,
     marginBottom: 40
+  },
+  note: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    marginBottom: 15,
   },
   user: {
     fontSize: 20,
