@@ -17,7 +17,7 @@ const API = "http://m0n5terg.pythonanywhere.com";
 const API_WHOAMI = "/whoami";
 //const IMAGE_URL = "/static/";
 
-export default function AccountScreen({ navigation }) {
+export default function AccountScreen({ navigation, getUserData }) {
   
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(true);
@@ -82,15 +82,7 @@ export default function AccountScreen({ navigation }) {
       { loading ? (<ActivityIndicator size="large" color="#0000ff" />) : 
       (
         <View style={{alignItems: "center"}}>
-          <Text style={styles.note}>Welcome back!</Text>
-          <Text style={styles.user}>{username}</Text>         
-          <Button title="Sign out" onPress={signOut} />
-        </View>
-      )}
-    </View>
-  );
-}
-/*
+          {/*
           <View style={styles.profileImage}>
             <Image
               source={{ uri: 'data:image/jpeg;base64,' + profileImage}}
@@ -106,11 +98,21 @@ export default function AccountScreen({ navigation }) {
             onPress={null}
           />
            </View>
-*/
+          */}
+          <Text style={styles.note}>Welcome back!</Text>
+          <Text style={styles.user}>{username}</Text>         
+          <Button title="Sign out" onPress={signOut} />
+          
+        </View>
+      )}
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   header: {
     fontSize: 40,
+    marginTop: 60,
     marginBottom: 40
   },
   note: {

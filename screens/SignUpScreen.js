@@ -122,6 +122,25 @@ export default function SignUpScreen({ navigation }) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <Text style={styles.title}>Sign Up</Text>
+        {/*
+          <View style={styles.profileImage}>
+            <Image
+              source={profileImage ? { uri: profileImage } 
+              : require("../assets/tempAvatar.jpg")}
+              style={styles.image}
+              resizeMode='center'
+            />
+          <View style={styles.camera}>
+            <IconButton
+              icon="camera"
+              color={Colors.red500}
+              size={40}
+              style={styles.camera}
+              onPress={Camera}
+            />
+          </View>
+        </View>       
+        */}
         <Text style={styles.fieldTitle}>Username</Text>
         <TextInput
           style={styles.input}
@@ -151,26 +170,6 @@ export default function SignUpScreen({ navigation }) {
     </TouchableWithoutFeedback>
   );
 }
-/*
-<View style={styles.profileImage}>
-            <Image
-              source={profileImage ? { uri: profileImage } 
-              : require("../assets/tempAvatar.jpg")}
-              style={styles.image}
-              resizeMode='center'
-            />
-          
-        <View style={styles.camera}>
-          <IconButton
-            icon="camera"
-            color={Colors.red500}
-            size={40}
-            style={styles.camera}
-            onPress={Camera}
-          />
-          </View>
-        </View>       
-*/
 
 const styles = StyleSheet.create({
   container: {
