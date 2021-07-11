@@ -22,6 +22,7 @@ import axios from "axios";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_SIGNUP = "/newuser";
+const IMAGE_URL = "/static";
 
 export default function SignUpScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -53,11 +54,10 @@ export default function SignUpScreen({ navigation }) {
 
     console.log(result);
 
-    if (!result.cancelled) {
-      setProfileImage(result.uri);
-    }    
-  };
-
+    if (result.cancelled) {
+    setProfileImage(result.uri);
+    }
+  };   
 
   async function signup() {
     
@@ -127,15 +127,15 @@ export default function SignUpScreen({ navigation }) {
         
           <View style={styles.profileImage}>
             <Image
-              source={profileImage ? { uri: profileImage } 
-              : require("../assets/tempAvatar.jpg")}
+              source= {{ uri: profileImage }} 
+              
               style={styles.image}
               resizeMode='center'
             />
           <View style={styles.camera}>
             <IconButton
               icon="camera"
-              color={ColorPropType.red500}
+              color={Colors.red500}
               size={40}
               style={styles.camera}
               onPress={Camera}

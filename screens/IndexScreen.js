@@ -8,7 +8,7 @@ import axios from "axios";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_POSTS = "/posts";
-const API_DELETE = "/post";
+const API_DELETE = "/posts/";
 
 export default function IndexScreen({ navigation }) {
 
@@ -56,7 +56,7 @@ export default function IndexScreen({ navigation }) {
     try {
       const token = await AsyncStorage.getItem("token");
 
-      const response = await axios.delete(API + API_DELETE + "/" + post.id, { 
+      const response = await axios.delete(API + API_DELETE + post.id, { 
         headers: { Authorization: `JWT ${token}` }, });
 
       setLoading(false);
@@ -116,9 +116,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     bottom: 30,
     right: 30
-  },
-  bottonContainer: {
-    marginTop: 540,
   },
   list: {
     width: "100%",
