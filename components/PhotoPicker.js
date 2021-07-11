@@ -4,8 +4,6 @@ import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const IMAGE_URL = "/static";
@@ -35,16 +33,9 @@ export default function PhotoPicker({ onPick }) {
       console.log(result);
   
       if (!result.cancelled) {
-        return; 
+        setImage(result.uri); 
+        onPick(result.uri);
       }
-
-      const FormattedImage = await ImageManipulator.manipulateAsync(
-        galleryResponse.localUri || galleryResponse.uri,
-        [{resize: { width: 1000, height: 1000, }}],
-        {compress: 0.9, base64: true}
-      );
-      
-      setImage(FormattedImage.base64);
     };
   
     return (
@@ -55,7 +46,7 @@ export default function PhotoPicker({ onPick }) {
                  size={60} 
                  color="red" />
               </TouchableOpacity>
-        {image && <Image source={{ uri: 'data:image/jpeg;base64,' + image }} style={styles.image} />}
+        {image && <Image source={{ uri: image }} style={styles.image} />}
       </View>
     );
   }

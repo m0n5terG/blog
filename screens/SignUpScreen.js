@@ -12,10 +12,11 @@ import {
   Platform,
   ActivityIndicator,
   Alert,
+  ColorPropType,
 } from "react-native";
-//import { IconButton, Colors } from "react-native-paper";
-//import * as ImagePicker from 'expo-image-picker';
-//import * as ImageManipulator from 'expo-image-manipulator';
+import { IconButton, Colors } from "react-native-paper";
+import * as ImagePicker from 'expo-image-picker';
+import * as ImageManipulator from 'expo-image-manipulator';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
@@ -25,12 +26,12 @@ const API_SIGNUP = "/newuser";
 export default function SignUpScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-//  const [profileImage, setProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
   const [errorText, setErrorText] = useState("");
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [error, setError] = useState(false);
-/*
+
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
@@ -56,7 +57,7 @@ export default function SignUpScreen({ navigation }) {
       setProfileImage(result.uri);
     }    
   };
-*/
+
 
   async function signup() {
     
@@ -67,15 +68,14 @@ export default function SignUpScreen({ navigation }) {
       setErrorText('Warning! Please enter credential')
     }
 
-//    if (profileImage ? profileImage : require("../assets/tempAvatar.jpg")) {
-//    } 
+    if (profileImage ? profileImage : require("../assets/tempAvatar.jpg"));
     else {
       try {
         setLoading(true);
         const response = await axios.post(API + API_SIGNUP, {
           username,
           password,
-//          profileImage,
+          profileImage,
         });
         console.log("Success signing up!");
         console.log(response);
@@ -95,17 +95,19 @@ export default function SignUpScreen({ navigation }) {
       setLoading(true);
       const token = await AsyncStorage.getItem("token");
       console.log(token);
+
       if (token == null) {
         setError(true);
         setUsername(null);
-//        setProfileImage(null);
+        setProfileImage(null);
+
       } else {
         try {
           const response = await axios.get(API + API_WHOAMI, {
             headers: { Authorization: `JWT ${token}` },
           });
           setUsername(response.data.username);
-//          setProfileImage(response.data.profileImage)
+          setProfileImage(response.data.profileImage)
 
           setLoading(false);
         } catch (error) {
@@ -122,7 +124,7 @@ export default function SignUpScreen({ navigation }) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <Text style={styles.title}>Sign Up</Text>
-        {/*
+        
           <View style={styles.profileImage}>
             <Image
               source={profileImage ? { uri: profileImage } 
@@ -133,14 +135,14 @@ export default function SignUpScreen({ navigation }) {
           <View style={styles.camera}>
             <IconButton
               icon="camera"
-              color={Colors.red500}
+              color={ColorPropType.red500}
               size={40}
               style={styles.camera}
               onPress={Camera}
             />
           </View>
         </View>       
-        */}
+        
         <Text style={styles.fieldTitle}>Username</Text>
         <TextInput
           style={styles.input}
@@ -222,7 +224,7 @@ const styles = StyleSheet.create({
     height: 40,
     alignSelf: "center"
   },
-  /*
+  
   profileImage: {
     width: 120,
     height: 120,
@@ -244,6 +246,6 @@ const styles = StyleSheet.create({
     height: 50,
     width: 40,  
   },
-  */
+  
   
 });

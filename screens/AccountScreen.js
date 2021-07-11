@@ -11,17 +11,19 @@ import {
 import { commonStyles } from "../styles/commonStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { color } from "react-native-reanimated";
+import { IconButton } from "react-native-paper";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_WHOAMI = "/whoami";
-//const IMAGE_URL = "/static/";
+const IMAGE_URL = "/static/";
 
 export default function AccountScreen({ navigation, getUserData }) {
   
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(true);
-  //  const [profileImage, setProfileImage] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+  const [dateJoin, setDateJoin] = useState("");
 
   async function getUserData() {
     setLoading(true);
@@ -36,9 +38,10 @@ export default function AccountScreen({ navigation, getUserData }) {
       });
 
       console.log("Got user profile!");
-
+      let dateJoinString = new Date(response.data.createdAt * 1000).toDateString();
       setUsername(response.data.username);
-//      setProfileImage(response.data.profileImage);
+      setProfileImage(response.data.profileImage);
+      setDateJoin(dateJoinString);
 
       setLoading(false);
 
@@ -54,7 +57,6 @@ export default function AccountScreen({ navigation, getUserData }) {
       } else {
         console.log(error);
       }
-       // We should probably go back to login screen?
      }
    }
 
@@ -82,10 +84,9 @@ export default function AccountScreen({ navigation, getUserData }) {
       { loading ? (<ActivityIndicator size="large" color="#0000ff" />) : 
       (
         <View style={{alignItems: "center"}}>
-          {/*
           <View style={styles.profileImage}>
             <Image
-              source={{ uri: 'data:image/jpeg;base64,' + profileImage}}
+              source={{ uri: IMAGE_URL + profileImage}}
               resizeMode='center'
             />
           </View>
@@ -98,9 +99,9 @@ export default function AccountScreen({ navigation, getUserData }) {
             onPress={null}
           />
            </View>
-          */}
           <Text style={styles.note}>Welcome back!</Text>
-          <Text style={styles.user}>{username}</Text>         
+          <Text style={styles.user}>{username}</Text>
+          <Text style={styles.user}>Joined Since: {dateJoin}</Text>       
           <Button title="Sign out" onPress={signOut} />
           
         </View>
@@ -129,9 +130,7 @@ const styles = StyleSheet.create({
   button: {
     fontSize: 16,
     padding: 10,
-  }
-})
-/*  
+  },
   profileImage: {
     width: 150,
     height: 150,
@@ -153,4 +152,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-});*/
+});
