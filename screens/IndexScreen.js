@@ -66,14 +66,14 @@ export default function IndexScreen({ navigation }) {
    
    return (
     <View style={commonStyles.container}>
+      { loading ? (<ActivityIndicator size="large" color="#0000ff" />) : 
+      (<FlatList style={styles.list} data={post} renderItem={renderItem} />)}
       <FAB
         style={styles.fab}
         small
         icon="plus"
-        onPress={() => console.log('Pressed')}  
+        onPress={() => navigation.navigate("Post")} 
       />
-      { loading ? (<ActivityIndicator size="large" color="#0000ff" />) : 
-      (<FlatList style={styles.list} data={post} renderItem={renderItem} />)}
     </View>   
   );
 }
