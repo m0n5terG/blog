@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View, Keyboard } from "react-native";
 import { FlatList, ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { Card, FAB, Paragraph, Title } from "react-native-paper";
+import { Button, Card, FAB, Paragraph, Title } from "react-native-paper";
 import { commonStyles } from "../styles/commonStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_POSTS = "/posts";
+const API_DELETE = "/post";
 
 export default function IndexScreen({ navigation }) {
 
@@ -48,12 +49,40 @@ export default function IndexScreen({ navigation }) {
     return removeListener;
   }, []);
 
+  async function deletePost() {
+    Keyboard.dismiss();
+    setLoading(true);
+
+    try {
+      const token = await AsyncStorage.getItem("token");
+
+      const response = await axios.delete(API + API_DELETE + "/" + post.id, { 
+        headers: { Authorization: `JWT ${token}` }, });
+
+      setLoading(false);
+      navigation.navigate('Index');
+    }
+    catch (error) {
+      setLoading(false);
+
+      if (error.response) {
+        console.log(error.response.data);
+      } 
+      else
+        console.log(error);
+    }
+  }
+
   function renderItem({ item }) {
     return (
       <ScrollView>
         <View style={commonStyles.container}>
-          <Card mode='outlined' style={{ width: '100%' }}>
+          <Card mode='outlined' style={{ width: '100%' }} >
           <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+          <Card.Actions>
+             <Button onPress={deletePost} >Delete</Button>
+             <Button onPress={null} >Edit</Button>
+          </Card.Actions>
             <Card.Content>
               <Title>{item.title}</Title>
               <Paragraph>{item.content}</Paragraph>
