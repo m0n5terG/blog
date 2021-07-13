@@ -35,7 +35,7 @@ export default function CreateScreen({ navigation }) {
           {
             title,
             content,
-            //imgage: IMAGE_URL,
+            imgage: IMAGE_URL,
           },
           {
           headers: { Authorization: `JWT ${token}` },
@@ -43,22 +43,23 @@ export default function CreateScreen({ navigation }) {
         );
           setLoading(false);
           console.log("Post success!");
-          console.log(respose);
+          console.log(response.data.image);
+          
           navigation.navigate('Index');
       } 
       catch (error) {
         setLoading(false);
         console.log(error.response);
-        setErrorText(error.response.data.describtion);
+        setErrorText(error.response.data.description);
       }
     }
   }
 
-  /*const resultRef = useRef()
+  const resultRef = useRef()
 
   const photoPickHandler = uri => {
     resultRef.current  = uri
-  }*/
+  }
 
 
   return (
@@ -70,8 +71,8 @@ export default function CreateScreen({ navigation }) {
         </View>
       ) : (
         <ScrollView>
-      {/*
-      <PhotoPicker onPick={photoPickHandler} />*/}
+      
+      <PhotoPicker onPick={photoPickHandler} />
       <TextInput style={styles.title}
         placeholder=" Title"
         value={title}

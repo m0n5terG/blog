@@ -56,7 +56,7 @@ export default function IndexScreen({ navigation }) {
     try {
       const token = await AsyncStorage.getItem("token");
 
-      const response = await axios.delete(API + API_DELETE + "/" + post.id, { 
+      const response = await axios.delete(API + API_DELETE + "${id}", { 
         headers: { Authorization: `JWT ${token}` }, });
 
       setLoading(false);
