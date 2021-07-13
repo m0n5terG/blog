@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ActivityIndicator, StyleSheet, Text, View, Keyboard } from "react-native";
-import { FlatList, ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList, ScrollView, TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 import { Button, Card, FAB, Paragraph, Title } from "react-native-paper";
 import { commonStyles } from "../styles/commonStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -8,7 +8,7 @@ import axios from "axios";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_POSTS = "/posts";
-const API_DELETE = "/posts/";
+const API_DELETE = "/post/";
 
 export default function IndexScreen({ navigation }) {
 
@@ -40,7 +40,9 @@ export default function IndexScreen({ navigation }) {
   }
 
   useEffect(() => {
+    console.log("Setting up nav listener");
     const removeListener = navigation.addListener("focus", () => {
+      console.log("Running nav listener");
       getPosts();
     });
 
@@ -49,17 +51,19 @@ export default function IndexScreen({ navigation }) {
     return removeListener;
   }, []);
 
-  async function deletePost() {
+  async function deletePost(id) {
     Keyboard.dismiss();
     setLoading(true);
 
     try {
       const token = await AsyncStorage.getItem("token");
 
-      const response = await axios.delete(API + API_DELETE + "${id}", { 
+      const response = await axios.delete(API + API_DELETE + (`${id}`), { 
         headers: { Authorization: `JWT ${token}` }, });
 
       setLoading(false);
+      console.log(response)
+      console.log("Post deleted")
       navigation.navigate('Index');
     }
     catch (error) {
@@ -76,19 +80,19 @@ export default function IndexScreen({ navigation }) {
   function renderItem({ item }) {
     return (
       <ScrollView>
-        <View style={commonStyles.container}>
-          <Card mode='outlined' style={{ width: '100%' }} >
-          <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-          <Card.Actions>
-             <Button onPress={deletePost} >Delete</Button>
-             <Button onPress={null} >Edit</Button>
-          </Card.Actions>
+          <View style={commonStyles.container}>
+            <Card mode='outlined' style={{ width: '100%' }} >
+            <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+            <Card.Actions>
+              <Button onPress={deletePost} >Delete</Button>
+              <Button onPress={() => navigation.navigate("Edit")} >Edit</Button>
+            </Card.Actions>
             <Card.Content>
               <Title>{item.title}</Title>
               <Paragraph>{item.content}</Paragraph>
             </Card.Content>
-          </Card>
-        </View>
+            </Card>
+          </View>
       </ScrollView>         
      );
    }
@@ -96,7 +100,12 @@ export default function IndexScreen({ navigation }) {
    return (
     <View style={commonStyles.container}>
       { loading ? (<ActivityIndicator size="large" color="#0000ff" />) : 
-      (<FlatList style={styles.list} data={post} renderItem={renderItem} />)}
+      (<FlatList 
+        style={styles.list} 
+        data={post} 
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id} 
+        />)}
       <FAB
         style={styles.fab}
         small

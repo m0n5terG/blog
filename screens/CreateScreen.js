@@ -43,6 +43,7 @@ export default function CreateScreen({ navigation }) {
         );
           setLoading(false);
           console.log("Post success!");
+          console.log(response.data);
           console.log(response.data.image);
           
           console.log(response);
@@ -51,7 +52,7 @@ export default function CreateScreen({ navigation }) {
       catch (error) {
         setLoading(false);
         console.log(error.response);
-        setErrorText(error.response.data.description);
+        setErrorText(error.response.data.content);
       }
     }
   }

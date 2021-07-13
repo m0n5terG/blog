@@ -46,7 +46,7 @@ export default function PhotoPicker({ onPick }) {
                  size={60} 
                  color="red" />
               </TouchableOpacity>
-        {image && <Image source={{ uri: image + IMAGE_URL }} style={styles.image} />}
+        {image && <Image source={{ uri: image }} style={styles.image} />}
       </View>
     );
   }

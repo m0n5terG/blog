@@ -23,7 +23,7 @@ export default function AccountScreen({ navigation, getUserData }) {
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(true);
   const [profileImage, setProfileImage] = useState("");
-  const [dateJoin, setDateJoin] = useState("");
+  //const [dateJoin, setDateJoin] = useState("");
 
   async function getUserData() {
     setLoading(true);
@@ -38,10 +38,11 @@ export default function AccountScreen({ navigation, getUserData }) {
       });
 
       console.log("Got user profile!");
-      let dateJoinString = new Date(response.data.createdAt * 1000).toDateString();
+      console.log(response.data.profileImage)
+    //  let dateJoinString = new Date(response.data.createdAt * 1000).toDateString();
       setUsername(response.data.username);
       setProfileImage(response.data.profileImage);
-      setDateJoin(dateJoinString);
+    //  setDateJoin(dateJoinString);
 
       setLoading(false);
 
@@ -86,11 +87,11 @@ export default function AccountScreen({ navigation, getUserData }) {
         <View style={{alignItems: "center"}}>
           <View style={styles.profileImage}>
             <Image
-              source={{ uri: IMAGE_URL + profileImage}}
+              source={{ uri: profileImage}}
               resizeMode='center'
             />
           </View>
-        <View style={styles.camera}>
+        {/*<View style={styles.camera}>
           <IconButton
             icon="camera"
             color={Colors.red500}
@@ -98,10 +99,10 @@ export default function AccountScreen({ navigation, getUserData }) {
             style={styles.camera}
             onPress={null}
           />
-           </View>
+      </View>*/}
           <Text style={styles.note}>Welcome back!</Text>
           <Text style={styles.user}>{username}</Text>
-          <Text style={styles.user}>Joined Since: {dateJoin}</Text>       
+          <Text style={styles.user}>{/*Joined Since: {dateJoin}*/}</Text>       
           <Button title="Sign out" onPress={signOut} />
           
         </View>

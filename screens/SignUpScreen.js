@@ -22,7 +22,7 @@ import axios from "axios";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_SIGNUP = "/newuser";
-const IMAGE_URL = "/static";
+//const IMAGE_URL = "/static";
 
 export default function SignUpScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -54,7 +54,7 @@ export default function SignUpScreen({ navigation }) {
 
     console.log(result);
 
-    if (result.cancelled) {
+    if (!result.cancelled) {
     setProfileImage(result.uri);
     }
   };   
@@ -68,7 +68,6 @@ export default function SignUpScreen({ navigation }) {
       setErrorText('Warning! Please enter credential')
     }
 
-    if (profileImage ? profileImage : require("../assets/tempAvatar.jpg"));
     else {
       try {
         setLoading(true);
@@ -78,6 +77,7 @@ export default function SignUpScreen({ navigation }) {
           profileImage,
         });
         console.log("Success signing up!");
+        console.log(response.data.profileImage)
         console.log(response);
         navigation.navigate("Account");
   
@@ -127,8 +127,8 @@ export default function SignUpScreen({ navigation }) {
         
           <View style={styles.profileImage}>
             <Image
-              source= {{ uri: profileImage }} 
-              
+              source={profileImage ? { uri: profileImage } 
+              : require("../assets/tempAvatar.jpg")}
               style={styles.image}
               resizeMode='center'
             />
