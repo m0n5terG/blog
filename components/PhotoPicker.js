@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Image, Button, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import * as ImageManipulator from 'expo-image-manipulator';
+//import * as ImageManipulator from 'expo-image-manipulator';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-const API = "http://m0n5terg.pythonanywhere.com";
-const IMAGE_URL = "/static";
 
 export default function PhotoPicker({ onPick }) {
     const [image, setImage] = useState(null);

@@ -74,7 +74,7 @@ export default function CreateScreen({ navigation }) {
       ) : (
         <ScrollView>
       
-      <PhotoPicker onPick={photoPickHandler} />
+      <PhotoPicker onPick={photoPickHandler && setImage} />
       <TextInput style={styles.title}
         placeholder=" Title"
         value={title}

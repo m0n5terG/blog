@@ -9,6 +9,7 @@ import axios from "axios";
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_POSTS = "/posts";
 const API_DELETE = "/post/";
+const IMAGE_URL = "/static";
 
 export default function IndexScreen({ navigation }) {
 
@@ -82,7 +83,7 @@ export default function IndexScreen({ navigation }) {
       <ScrollView>
           <View style={commonStyles.container}>
             <Card mode='outlined' style={{ width: '100%' }} >
-            <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+            <Card.Cover source={{ uri: IMAGE_URL + item.image }} />
             <Card.Actions>
               <Button onPress={deletePost} >Delete</Button>
               <Button onPress={() => navigation.navigate("Edit")} >Edit</Button>
