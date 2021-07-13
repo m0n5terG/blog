@@ -35,7 +35,7 @@ export default function CreateScreen({ navigation }) {
           {
             title,
             content,
-            imgage: IMAGE_URL,
+            image,
           },
           {
           headers: { Authorization: `JWT ${token}` },
@@ -45,6 +45,7 @@ export default function CreateScreen({ navigation }) {
           console.log("Post success!");
           console.log(response.data.image);
           
+          console.log(response);
           navigation.navigate('Index');
       } 
       catch (error) {

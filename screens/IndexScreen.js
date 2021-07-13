@@ -8,7 +8,7 @@ import axios from "axios";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_POSTS = "/posts";
-const API_DELETE = "/post";
+const API_DELETE = "/posts/";
 
 export default function IndexScreen({ navigation }) {
 
@@ -116,9 +116,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     bottom: 30,
     right: 30
-  },
-  bottonContainer: {
-    marginTop: 540,
   },
   list: {
     width: "100%",
