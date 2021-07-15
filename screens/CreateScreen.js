@@ -8,7 +8,7 @@ import PhotoPicker from "../components/PhotoPicker";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_CREATE = "/create";
-const IMAGE_URL = "/static";
+//const IMAGE_URL = "/static";
 
 export default function CreateScreen({ navigation }) {
 

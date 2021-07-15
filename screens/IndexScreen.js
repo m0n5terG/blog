@@ -85,7 +85,7 @@ export default function IndexScreen({ navigation }) {
       <ScrollView>
           <View style={commonStyles.container}>
             <Card mode='outlined' style={{ width: '100%' }} >
-            <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+            <Card.Cover source={{ uri: IMAGE_URL + item.image }} />
             <Card.Actions>
               <Button onPress={() => deletePost(item.id)} >Delete</Button>
               <Button onPress={() => navigation.navigate("Edit")} >Edit</Button>
