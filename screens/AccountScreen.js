@@ -84,13 +84,13 @@ export default function AccountScreen({ navigation, getUserData }) {
       { loading ? (<ActivityIndicator size="large" color="#0000ff" />) : 
       (
         <View style={{alignItems: "center"}}>
-          <View style={styles.profileImage}>
+        {/*  <View style={styles.profileImage}>
             <Image
               source={{ uri: profileImage}}
               resizeMode='center'
             />
           </View>
-        {/*<View style={styles.camera}>
+        <View style={styles.camera}>
           <IconButton
             icon="camera"
             color={Colors.red500}
