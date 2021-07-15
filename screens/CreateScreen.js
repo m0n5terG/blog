@@ -77,13 +77,13 @@ export default function CreateScreen({ navigation }) {
       <PhotoPicker onPick={photoPickHandler} />
       */}
       <TextInput style={styles.title}
-        placeholder=" Title"
+        placeholder="Title"
         value={title}
         onChangeText={(input) => setTitle(input)}/>
       <TextInput style={styles.content}
-        placeholder=" Post"
+        placeholder="Post"
         multiline = {true}
-        numberOfLines = {4}
+        numberOfLines = {6}
         value={content}
         onChangeText={(input) => setContent(input)}/>
       <TouchableHighlight style={styles.button} onPress={submitPost} underlayColor='#99d9f4'>
@@ -101,12 +101,12 @@ export default function CreateScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   title: {
-    height: 40,
-    width: 280,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
+    marginTop: 40,
     marginBottom: 10,
+    marginHorizontal: 20,
     padding: 10
   },
   errorText: {
@@ -120,7 +120,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 10,
-    height: 100,
+    marginHorizontal: 20,
+
+    width: 300,
     padding: 10,
   },
   buttonText: {
@@ -129,13 +131,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 36,
+    padding:10,
+    width: 100,
     backgroundColor: '#48BBEC',
     borderColor: '#48BBEC',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
-    alignSelf: 'stretch',
+    alignSelf: 'center',
     justifyContent: 'center'
   }
 });
