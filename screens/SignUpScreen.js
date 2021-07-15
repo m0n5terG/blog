@@ -22,6 +22,7 @@ import axios from "axios";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_SIGNUP = "/newuser";
+const API_LOGIN = "/auth";
 //const IMAGE_URL = "/static";
 
 export default function SignUpScreen({ navigation }) {
@@ -76,11 +77,11 @@ export default function SignUpScreen({ navigation }) {
           password,
     //      profileImage,
         });
+
         console.log("Success signing up!");
     //    console.log(response.data.profileImage)
         console.log(response);
-        navigation.navigate("Account");
-  
+       login();
       } catch (error) {
         setLoading(false);
         console.log("Error signing up!");
@@ -90,36 +91,27 @@ export default function SignUpScreen({ navigation }) {
     }
   }
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const token = await AsyncStorage.getItem("token");
-      console.log(token);
+  async function login() {
+    console.log("---- Login time ----");
+    Keyboard.dismiss();
 
-      if (token == null) {
-        setError(true);
-        setUsername(null);
-    //    setProfileImage(null);
+    try {
+      const response = await axios.post(API + API_LOGIN, {
+        username,
+        password,
+      });
+      console.log("Success logging in!");
+      console.log(response);
 
-      } else {
-        try {
-          const response = await axios.get(API + API_WHOAMI, {
-            headers: { Authorization: `JWT ${token}` },
-          });
-          setUsername(response.data.username);
-    //      setProfileImage(response.data.profileImage)
+      AsyncStorage.setItem("token", response.data.access_token);
+      navigation.navigate("Account");
+    } catch (error) {
+      console.log("Error logging in!");
+      console.log(error.response);
 
-          setLoading(false);
-        } catch (error) {
-          setError(true);
-          setUsername(null);
-          setLoading(false);
-        }
-      }
-    })();
-    setRefresh(false);
-  }, [refresh]);
-
+      setErrorText(error.response.data.description);
+    }
+  }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
