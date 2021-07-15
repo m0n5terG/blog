@@ -8,7 +8,8 @@ import axios from "axios";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_POSTS = "/posts";
-const API_DELETE = "/post/";
+const IMAGE_URL = "/static";
+
 
 export default function IndexScreen({ navigation }) {
 
@@ -55,15 +56,17 @@ export default function IndexScreen({ navigation }) {
     Keyboard.dismiss();
     setLoading(true);
 
-    try {
-      const token = await AsyncStorage.getItem("token");
+    const token = await AsyncStorage.getItem("token");
+    console.log("Deleting " + id);
 
-      const response = await axios.delete(API + API_DELETE + (`${id}`), { 
+    try {
+      
+      const response = await axios.delete(API + API_POSTS + `/${id}`, { 
         headers: { Authorization: `JWT ${token}` }, });
 
       setLoading(false);
       console.log(response)
-      console.log("Post deleted")
+      setPost(post.filter((item) => item.id !== id));
       navigation.navigate('Index');
     }
     catch (error) {
@@ -84,7 +87,7 @@ export default function IndexScreen({ navigation }) {
             <Card mode='outlined' style={{ width: '100%' }} >
             <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
             <Card.Actions>
-              <Button onPress={deletePost} >Delete</Button>
+              <Button onPress={() => deletePost(item.id)} >Delete</Button>
               <Button onPress={() => navigation.navigate("Edit")} >Edit</Button>
             </Card.Actions>
             <Card.Content>
@@ -104,7 +107,7 @@ export default function IndexScreen({ navigation }) {
         style={styles.list} 
         data={post} 
         renderItem={renderItem}
-        keyExtractor={(item) => item.id} 
+        keyExtractor={(item) => item.id.toString()} 
         />)}
       <FAB
         style={styles.fab}
