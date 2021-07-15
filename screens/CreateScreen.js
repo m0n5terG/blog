@@ -56,13 +56,13 @@ export default function CreateScreen({ navigation }) {
       }
     }
   }
-
+/*
   const resultRef = useRef()
 
   const photoPickHandler = uri => {
     resultRef.current  = uri
   }
-
+*/
 
   return (
     <View style={commonStyles.container}>
@@ -73,8 +73,9 @@ export default function CreateScreen({ navigation }) {
         </View>
       ) : (
         <ScrollView>
-      
+      {/*
       <PhotoPicker onPick={photoPickHandler} />
+      */}
       <TextInput style={styles.title}
         placeholder=" Title"
         value={title}

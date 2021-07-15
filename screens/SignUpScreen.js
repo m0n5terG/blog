@@ -3,20 +3,20 @@ import { useState, useEffect } from "react";
 import {
   View,
   Text,
-  Image,
+//  Image,
   TextInput,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
-  Platform,
-  ActivityIndicator,
-  Alert,
-  ColorPropType,
+//  Platform,
+//  ActivityIndicator,
+//  Alert,
+//  ColorPropType,
 } from "react-native";
-import { IconButton, Colors } from "react-native-paper";
-import * as ImagePicker from 'expo-image-picker';
-import * as ImageManipulator from 'expo-image-manipulator';
+//import { IconButton, Colors } from "react-native-paper";
+//import * as ImagePicker from 'expo-image-picker';
+//import * as ImageManipulator from 'expo-image-manipulator';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
@@ -27,12 +27,12 @@ const API_SIGNUP = "/newuser";
 export default function SignUpScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [profileImage, setProfileImage] = useState(null);
+//  const [profileImage, setProfileImage] = useState(null);
   const [errorText, setErrorText] = useState("");
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [error, setError] = useState(false);
-
+/*
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
@@ -57,7 +57,7 @@ export default function SignUpScreen({ navigation }) {
     if (!result.cancelled) {
     setProfileImage(result.uri);
     }
-  };   
+  };  */ 
 
   async function signup() {
     
@@ -74,10 +74,10 @@ export default function SignUpScreen({ navigation }) {
         const response = await axios.post(API + API_SIGNUP, {
           username,
           password,
-          profileImage,
+    //      profileImage,
         });
         console.log("Success signing up!");
-        console.log(response.data.profileImage)
+    //    console.log(response.data.profileImage)
         console.log(response);
         navigation.navigate("Account");
   
@@ -99,7 +99,7 @@ export default function SignUpScreen({ navigation }) {
       if (token == null) {
         setError(true);
         setUsername(null);
-        setProfileImage(null);
+    //    setProfileImage(null);
 
       } else {
         try {
@@ -107,7 +107,7 @@ export default function SignUpScreen({ navigation }) {
             headers: { Authorization: `JWT ${token}` },
           });
           setUsername(response.data.username);
-          setProfileImage(response.data.profileImage)
+    //      setProfileImage(response.data.profileImage)
 
           setLoading(false);
         } catch (error) {
@@ -124,7 +124,7 @@ export default function SignUpScreen({ navigation }) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <Text style={styles.title}>Sign Up</Text>
-        
+        {/*
           <View style={styles.profileImage}>
             <Image
               source={profileImage ? { uri: profileImage } 
@@ -142,7 +142,7 @@ export default function SignUpScreen({ navigation }) {
             />
           </View>
         </View>       
-        
+        */}
         <Text style={styles.fieldTitle}>Username</Text>
         <TextInput
           style={styles.input}

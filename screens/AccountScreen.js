@@ -6,24 +6,23 @@ import {
   View,
   ActivityIndicator,
   Image,
-  TouchableOpacity 
+//  TouchableOpacity 
 } from "react-native";
 import { commonStyles } from "../styles/commonStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { IconButton } from "react-native-paper";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+//import { IconButton } from "react-native-paper";
+//import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_WHOAMI = "/whoami";
-const IMAGE_URL = "/static/";
+//const IMAGE_URL = "/static/";
 
 export default function AccountScreen({ navigation, getUserData }) {
   
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(true);
   const [profileImage, setProfileImage] = useState("");
-  //const [dateJoin, setDateJoin] = useState("");
 
   async function getUserData() {
     setLoading(true);
@@ -41,7 +40,7 @@ export default function AccountScreen({ navigation, getUserData }) {
       console.log(response.data.profileImage)
     //  let dateJoinString = new Date(response.data.createdAt * 1000).toDateString();
       setUsername(response.data.username);
-      setProfileImage(response.data.profileImage);
+    //  setProfileImage(response.data.profileImage);
     //  setDateJoin(dateJoinString);
 
       setLoading(false);

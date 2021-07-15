@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ActivityIndicator, StyleSheet, Text, View, Keyboard } from "react-native";
-import { FlatList, ScrollView, TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
+import { ActivityIndicator, StyleSheet, View, Keyboard } from "react-native";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { Button, Card, FAB, Paragraph, Title } from "react-native-paper";
 import { commonStyles } from "../styles/commonStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -8,7 +8,7 @@ import axios from "axios";
 
 const API = "http://m0n5terg.pythonanywhere.com";
 const API_POSTS = "/posts";
-const IMAGE_URL = "/static";
+//const IMAGE_URL = "/static";
 
 
 export default function IndexScreen({ navigation }) {
